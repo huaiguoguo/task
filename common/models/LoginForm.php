@@ -15,6 +15,8 @@ class LoginForm extends Model
 
     private $_user;
 
+    public $verifyCode;//验证码这个变量是必须建的，因为要储存验证码的值
+
 
     /**
      * @inheritdoc
@@ -28,6 +30,13 @@ class LoginForm extends Model
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'verifyCode' => 'Verification Code'
         ];
     }
 
