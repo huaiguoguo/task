@@ -74,12 +74,22 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = '_index';
         $list         = Task::find()->all();
         $data['list'] = $list;
         return $this->render('index', $data);
     }
 
+
+    public function actionFull(){
+        $data = [];
+        $this->layout = "_full";
+        return $this->render('full', $data);
+    }
+
+
     public function actionDetail(){
+        $this->layout = '_detail';
         $data = [];
         $id = Yii::$app->request->get("id");
 
@@ -87,6 +97,8 @@ class SiteController extends Controller
             throw new \Exception("数据不存在", 505);
         }
 
+        $detail = Task::findOne($id);
+        $data['detail'] = $detail;
 
         $data['test'] = '测试';
         return $this->render('detail', $data);

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e643f887bc1236c16c827bbc220c318a",
+    "content-hash": "890bd2b80e5aec04c0af1a754fbbe419",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -598,6 +598,57 @@
                 "shell"
             ],
             "time": "2017-03-19T21:40:44+00:00"
+        },
+        {
+            "name": "qiniu/php-sdk",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/qiniu/php-sdk.git",
+                "reference": "e58e685bd158605170e1b53be0aeb97c8cddba12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/qiniu/php-sdk/e58e685bd158605170e1b53be0aeb97c8cddba12.zip",
+                "reference": "e58e685bd158605170e1b53be0aeb97c8cddba12",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Qiniu\\": "src/Qiniu"
+                },
+                "files": [
+                    "src/Qiniu/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Qiniu",
+                    "email": "sdk@qiniu.com",
+                    "homepage": "http://www.qiniu.com"
+                }
+            ],
+            "description": "Qiniu Resource (Cloud) Storage SDK for PHP",
+            "homepage": "http://developer.qiniu.com/",
+            "keywords": [
+                "cloud",
+                "qiniu",
+                "sdk",
+                "storage"
+            ],
+            "time": "2017-02-21 02:59:12"
         },
         {
             "name": "smarty/smarty",
@@ -3516,7 +3567,8 @@
     "stability-flags": {
         "yiisoft/yii2-smarty": 20,
         "yiisoft/yii2-shell": 20,
-        "yiisoft/yii2-redis": 20
+        "yiisoft/yii2-redis": 20,
+        "qiniu/php-sdk": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
