@@ -8,6 +8,8 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
+use ZipArchive;
+
 
 use frontend\models\ContactForm;
 
@@ -70,6 +72,24 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+
+//        $zip = new ZipArchive();
+//        $filename = "testt.zip";
+//        $zip->open('test.zip');
+//        dump($zip);
+//        dump($zip);
+//        for ($i=0; $i<$zip->numFiles;$i++) {
+//            echo "index: $i\n";
+//            dump($zip->statIndex($i));
+//        }
+//        if ($zip->open($filename, ZIPARCHIVE::CREATE)!==TRUE) {
+//            exit("cannot open <$filename>\n");
+//        }
+//        $zip->addFromString("testfilephp.txt", "#1 This is a test string added as testfilephp.txt.\n");
+//        $zip->addFromString("testfilephp2.txt", "#2 This is a test string added as testfilephp2.txt.\n");
+//        $zip->close();
+//        exit;
+
         $this->layout = '_index';
         $list         = Task::find()->all();
         $data['list'] = $list;
