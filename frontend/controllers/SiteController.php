@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\controllers;
 
 use common\models\Task;
@@ -7,6 +8,7 @@ use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use common\models\Test;
 
 use ZipArchive;
 
@@ -97,23 +99,25 @@ class SiteController extends Controller
     }
 
 
-    public function actionFull(){
-        $data = [];
+    public function actionFull()
+    {
+        $data         = [];
         $this->layout = "_full";
         return $this->render('full', $data);
     }
 
 
-    public function actionDetail(){
+    public function actionDetail()
+    {
         $this->layout = '_detail';
-        $data = [];
-        $id = Yii::$app->request->get("id");
+        $data         = [];
+        $id           = Yii::$app->request->get("id");
 
-        if(!intval($id)) {
+        if (!intval($id)) {
             throw new \Exception("数据不存在", 505);
         }
 
-        $detail = Task::findOne($id);
+        $detail         = Task::findOne($id);
         $data['detail'] = $detail;
 
         $data['test'] = '测试';
@@ -121,9 +125,18 @@ class SiteController extends Controller
     }
 
 
+    public function actionTest()
+    {
+        $test = new Test();
 
-
-
+        dump($test);
+        //写父分类
+        //写子分类
+        //查子分类
+        //查某个分类下面的子分类
+        //删除父分类
+        //删除子分类
+    }
 
 
     /**
