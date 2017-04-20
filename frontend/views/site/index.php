@@ -2,6 +2,8 @@
 
 /* @var $this yii\web\View */
 
+use \yii\helpers\Url;
+
 $this->title = 'My Yii Application';
 ?>
 
@@ -53,7 +55,7 @@ $this->title = 'My Yii Application';
                 <img src="<?= $value->taskUser->avatar;?>" alt="<?= $value->taskUser->username.'  '.$value->title;; ?> ">
             </a>
             <h2 class="fly-tip">
-                <a href="jie/detail.html"><?= $value->title; ?></a>
+                <a href="<?=Url::to(['detail','id'=>1])?>"><?= $value->title; ?></a>
             </h2>
             <p>
                 <span><a href="user/home.html"><?= $value->taskUser->username; ?></a></span>

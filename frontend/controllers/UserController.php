@@ -10,6 +10,8 @@
 namespace frontend\controllers;
 
 use Yii;
+use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\Controller;
 use common\models\LoginForm;
 
@@ -20,6 +22,8 @@ use yii\web\BadRequestHttpException;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
+use yii\web\Link;
+use yii\web\Response;
 
 class UserController extends Controller
 {
@@ -34,25 +38,67 @@ class UserController extends Controller
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-                'backColor'=>0x000000,//背景颜色
+                'backColor' => 0x000000,//背景颜色
                 'maxLength' => 6, //最大显示个数
                 'minLength' => 5,//最少显示个数
                 'padding' => 5,//间距
-                'height'=>40,//高度
-                'width' => 130,  //宽度
-                'foreColor'=>0xffffff,     //字体颜色
-                'offset'=>4,        //设置字符偏移量 有效果
-                //'controller'=>'login',        //拥有这个动作的controller
+                'height' => 37,//高度
+                'width' => 120,  //宽度
+                'foreColor' => 0xffffff,     //字体颜色
+                'offset' => 6,        //设置字符偏移量 有效果
+//                'disturbCharCount' =>2,//干扰字符数量
+                'transparent' => false,
+//                'controller'=>'user/login',        //拥有这个动作的controller
+            ],
+            'captcha_signup' => [
+                'class' => 'yii\captcha\CaptchaAction',
+                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+                'backColor' => 0x000000,//背景颜色
+                'maxLength' => 6, //最大显示个数
+                'minLength' => 5,//最少显示个数
+                'padding' => 5,//间距
+                'height' => 37,//高度
+                'width' => 120,  //宽度
+                'foreColor' => 0xffffff,     //字体颜色
+                'offset' => 6,        //设置字符偏移量 有效果
+//                'disturbCharCount' =>2,//干扰字符数量
+                'transparent' => false,
+//                'controller'=>'user/login',        //拥有这个动作的controller
             ],
         ];
     }
 
 
+    public function actionHome()
+    {
+        $data         = [];
+        return $this->render('home', $data);
+    }
+
+    public function actionIndex()
+    {
+        $this->layout = "user";
+        $data         = [];
+        return $this->render('index', $data);
+    }
+
     public function actionSet()
     {
-        $data = [];
+        $this->layout = "user";
+        $data         = [];
         return $this->render('set', $data);
     }
+
+
+
+
+    public function actionMessage()
+    {
+        $this->layout = "user";
+        $data         = [];
+        return $this->render('message', $data);
+    }
+
 
     public function actionAdd()
     {
@@ -66,17 +112,29 @@ class UserController extends Controller
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
+        if ($model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if ($model->login()) {
+                Yii::$app->response->data = ['status' => 0, 'msg' => '成功', 'code' => 200, 'action' => Url::to(['/user/index'])];
+                Yii::$app->response->setStatusCode(200);
+            } else {
+                $errors = $model->getFirstErrors();
+                $error  = '';
+                foreach ($errors as $key => $value) {
+                    $error .= $value . '....';
+                }
+                Yii::$app->response->data = ['status' => 'error', 'msg' => $error, 'code' => 406];
+                Yii::$app->response->setStatusCode(200, $error);
+            }
+            Yii::$app->response->send();
         }
-    }
 
+        return $this->render('login', [
+            'model' => $model,
+        ]);
+
+    }
 
     public function actionLogout()
     {
@@ -88,11 +146,32 @@ class UserController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+
+            //注册
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
+                    $url = Url::to(['user/index']);
+                } else {
+                    $url = Url::to(['user/login']);
                 }
+
+                $data = ['status' => 0, 'msg' => '恭喜你, 注册成功啦!', 'code' => 200, 'action' => $url];
+                Yii::$app->response->setStatusCode(200);
+
+            } else {
+                $errors = $model->getFirstErrors();
+                $error  = '';
+                foreach ($errors as $value) {
+                    if (!empty($value)) {
+                        $error .= $value . '</br>';
+                    }
+                }
+                $data = ['status' => 'error', 'msg' => $error, 'code' => 406];
+                Yii::$app->response->setStatusCode(200, $error);
             }
+            Yii::$app->response->data = $data;
+            Yii::$app->response->send();
         }
 
         return $this->render('signup', [

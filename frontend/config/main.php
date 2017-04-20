@@ -12,15 +12,15 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
-        'view' => [
-            'renderers' => [
-                'tpl' => [
-                    'class' => 'yii\smarty\ViewRenderer',
-                    'cachePath' => '@runtime/Smarty/cache'
-                ]
-            ],
-            'defaultExtension' => 'tpl'
-        ],
+//        'view' => [
+//            'renderers' => [
+//                'tpl' => [
+//                    'class' => 'yii\smarty\ViewRenderer',
+//                    'cachePath' => '@runtime/Smarty/cache'
+//                ]
+//            ],
+//            'defaultExtension' => 'tpl'
+//        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],

@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\models\NestedCategory;
 use common\models\Task;
 use Yii;
 
@@ -67,31 +68,10 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return mixed
-     */
+
+
     public function actionIndex()
     {
-
-//        $zip = new ZipArchive();
-//        $filename = "testt.zip";
-//        $zip->open('test.zip');
-//        dump($zip);
-//        dump($zip);
-//        for ($i=0; $i<$zip->numFiles;$i++) {
-//            echo "index: $i\n";
-//            dump($zip->statIndex($i));
-//        }
-//        if ($zip->open($filename, ZIPARCHIVE::CREATE)!==TRUE) {
-//            exit("cannot open <$filename>\n");
-//        }
-//        $zip->addFromString("testfilephp.txt", "#1 This is a test string added as testfilephp.txt.\n");
-//        $zip->addFromString("testfilephp2.txt", "#2 This is a test string added as testfilephp2.txt.\n");
-//        $zip->close();
-//        exit;
-
         $this->layout = '_index';
         $list         = Task::find()->all();
         $data['list'] = $list;
@@ -122,20 +102,6 @@ class SiteController extends Controller
 
         $data['test'] = '测试';
         return $this->render('detail', $data);
-    }
-
-
-    public function actionTest()
-    {
-        $test = new Test();
-
-        dump($test);
-        //写父分类
-        //写子分类
-        //查子分类
-        //查某个分类下面的子分类
-        //删除父分类
-        //删除子分类
     }
 
 
@@ -170,6 +136,79 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+
+    public function ZipTest()
+    {
+
+
+        //        $zip = new ZipArchive();
+//        $filename = "testt.zip";
+//        $zip->open('test.zip');
+//        dump($zip);
+//        dump($zip);
+//        for ($i=0; $i<$zip->numFiles;$i++) {
+//            echo "index: $i\n";
+//            dump($zip->statIndex($i));
+//        }
+//        if ($zip->open($filename, ZIPARCHIVE::CREATE)!==TRUE) {
+//            exit("cannot open <$filename>\n");
+//        }
+//        $zip->addFromString("testfilephp.txt", "#1 This is a test string added as testfilephp.txt.\n");
+//        $zip->addFromString("testfilephp2.txt", "#2 This is a test string added as testfilephp2.txt.\n");
+//        $zip->close();
+//        exit;
+
+    }
+
+
+    public function actionTest()
+    {
+        //查子类
+        //查某个分类下面的子分类
+        //删除父分类
+        //删除子分类
+    }
+
+
+    public function addChildCate()
+    {
+        $pid    = Yii::$app->request->get("pid");
+        $Parent = NestedCategory::findOne($pid);
+
+        //插入子节点：它的左右值与它的父级有关：左值=父级的右值，右值=父级的右值+1
+        //这时要更新的数据有：
+        //父级的右值，
+        //所有左值大于父级左级，右值大于低级右值的节点左右值都应该+2；
+
+        $NestedCategory = new NestedCategory();
+
+        $NestedCategory->name = "测试子类";
+        $NestedCategory->lft  = $Parent->rgt;
+        $NestedCategory->rgt  = $Parent->rgt + 1;
+        $NestedCategory->save();
+
+        $NestedCategory::updateAll(['lft' => 2, 'rgt' => 2], ['']);
+
+//        $table->where('lft>' . $resr['lft'] . ' and rgt>=' . $rgt . ' and shops_id=' . $shopsid)->setInc('lft', 2);
+//        $table->where('lft>' . $resr['lft'] . ' and rgt>=' . $rgt . ' and shops_id=' . $shopsid)->setInc('rgt', 2);
+
+        $Parent->rgt += 2;
+        $Parent->save();
+    }
+
+
+    public function addTopCate()
+    {
+        $NestedCategory = new NestedCategory();
+        $result         = $NestedCategory::find()->orderBy("rgt desc")->asArray()->one();
+
+        //插入最顶级节点：它的左右值与该树中最大的右值有关：左值=最大右值+1，右值=最大右值+2，你可以自己模拟一下；
+        $NestedCategory->name = "测试父类";
+        $NestedCategory->lft  = $result->rgt + 1;
+        $NestedCategory->rgt  = $result->rgt + 2;
+        $NestedCategory->save();
     }
 
 

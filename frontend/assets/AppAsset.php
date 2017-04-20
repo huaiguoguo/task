@@ -17,9 +17,10 @@ class AppAsset extends AssetBundle
         "fly/css/global.css"
     ];
     public $js = [
+        '/fly/layui/layui.js'
     ];
     public $depends = [
-        'yii\web\YiiAsset',
+//        'yii\web\YiiAsset',
 //        'yii\bootstrap\BootstrapAsset',
     ];
 }
