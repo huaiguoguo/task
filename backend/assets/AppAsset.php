@@ -24,9 +24,10 @@ class AppAsset extends AssetBundle
 
         "/inspinia/css/style.css"
     ];
+
     public $js = [
         //main
-        "/inspinia/js/jquery-3.1.1.min.js",
+//        "/inspinia/js/jquery-3.1.1.min.js",
         "/inspinia/js/bootstrap.min.js",
         "/inspinia/js/plugins/metisMenu/jquery.metisMenu.js",
         "/inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js",
