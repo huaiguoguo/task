@@ -7,9 +7,9 @@
  * Time: 18:33
  */
 use yii\helpers\Html;
-use backend\assets\AppAsset;
+use backend\assets\SigninAppAsset;
 
-AppAsset::register($this);
+SigninAppAsset::register($this);
 
 $this->title = '登录';
 $this->params['breadcrumbs'][] = $this->title;

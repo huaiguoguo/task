@@ -9,10 +9,10 @@ use yii\web\AssetBundle;
  */
 class AppAsset extends AssetBundle
 {
+
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-
         "/inspinia/css/bootstrap.min.css",
         "/inspinia/font-awesome/css/font-awesome.css",
         "/inspinia/css/animate.css",
@@ -21,13 +21,12 @@ class AppAsset extends AssetBundle
         "/inspinia/css/plugins/codemirror/ambiance.css",
         "/inspinia/css/plugins/toastr/toastr.min.css",
         "/inspinia/js/plugins/gritter/jquery.gritter.css",
-
         "/inspinia/css/style.css"
     ];
 
     public $js = [
         //main
-//        "/inspinia/js/jquery-3.1.1.min.js",
+        "/inspinia/js/jquery-3.1.1.min.js",
         "/inspinia/js/bootstrap.min.js",
         "/inspinia/js/plugins/metisMenu/jquery.metisMenu.js",
         "/inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js",
@@ -37,11 +36,12 @@ class AppAsset extends AssetBundle
 
         //插件
         "/inspinia/js/plugins/toastr/toastr.min.js",
-
-
     ];
+
+
     public $depends = [
 //        'yii\web\YiiAsset',
 //        'yii\bootstrap\BootstrapAsset',
     ];
+
 }

@@ -23,6 +23,7 @@
         "yiisoft/yii2-redis": "^2.0@dev",
         "qiniu/php-sdk": "dev-master",
         "yiisoft/yii2-sphinx": "^2.0@dev",
+        "huaiguoguo/yii2-taobao-sdk": "1.01",
         "yiisoft/yii2-mongodb": "^2.1@dev"
     },
     "require-dev": {

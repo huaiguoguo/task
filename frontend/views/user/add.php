@@ -11,7 +11,6 @@ $is_edit = 1;
 ?>
 
 
-
 <div class="main layui-clear">
     <div class="fly-panel" pad20>
         <h2 class="page-title">编辑问题/发表问题</h2>
@@ -33,7 +32,7 @@ $is_edit = 1;
                 </div>
                 <div class="layui-form-item layui-form-text">
                     <div class="layui-input-block">
-                        <textarea id="L_content" name="content" required lay-verify="required" placeholder="请输入内容" class="layui-textarea fly-editor" style="height: 260px;">这里是内容</textarea>
+                        <textarea id="demo" name="content" required lay-verify="required" placeholder="L_content请输入内容fly-editor" class="layui-textarea" style="height: 260px;">这里是内容</textarea>
                     </div>
                     <label for="L_content" class="layui-form-label" style="top: -2px;">描述</label>
                 </div>
@@ -90,3 +89,37 @@ $is_edit = 1;
     </div>
 
 </div>
+
+<script>
+
+<?php $this->beginBlock('layedit');?>
+
+
+
+    layui.use('layedit', function(){
+        var layedit = layui.layedit;
+        layedit.build('demo', {
+            tool: [
+                'strong' //加粗
+                ,'italic' //斜体
+                ,'underline' //下划线
+                ,'del' //删除线
+                ,'|' //分割线
+                ,'code' //清除链接
+                ,'left' //左对齐
+                ,'center' //居中对齐
+                ,'right' //右对齐
+                ,'link' //超链接
+                ,'unlink' //清除链接
+                ,'|' //分割线
+                ,'face' //表情
+                ,'image' //插入图片
+            ]
+        });
+    });
+
+<?php $this->endBlock();?>
+
+</script>
+
+<?php $this->registerJs($this->blocks['layedit'], \yii\web\View::POS_READY); ?>

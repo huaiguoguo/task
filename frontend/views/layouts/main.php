@@ -56,7 +56,7 @@ AppAsset::register($this);
                     </p>
                 <?php else: ?>
                     <!-- 登入后的状态 -->
-                    <?= Html::a(Html::img('http://tp4.sinaimg.cn/1345566427/180/5730976522/0') . "<cite>贤心</cite><i>VIP2</i>", ['user/index'], ['class' => 'avatar']) ?>
+                    <?= Html::a(Html::img('http://tp4.sinaimg.cn/1345566427/180/5730976522/0') . "<cite>".Yii::$app->user->identity->username."</cite><i>VIP2</i>", ['user/index'], ['class' => 'avatar']) ?>
                     <div class="nav">
                         <?= Html::a("<i class='iconfont icon-shezhi'></i>设置", ['user/set/']) ?>
                         <?= Html::a("<i class='iconfont icon-tuichu' style='top: 0; font-size: 22px;'></i>退了", ['user/logout/']) ?>
@@ -81,24 +81,29 @@ AppAsset::register($this);
         </p>
     </div>
     <script>
+
         <?php $this->beginBlock('fly_layui'); ?>
 
-        layui.cache.page = '';
-        layui.cache.user = {
-            username: '游客'
-            , uid: -1
-            , avatar: '/fly/images/avatar/00.jpg'
-            , experience: 83
-            , sex: '男'
-        };
-        layui.config({
-            version: "2.0.0"
-            , base: '/fly/mods/'
-        }).extend({
-            fly: 'index'
-        }).use('fly');
+            layui.cache.page = '';
+            layui.cache.user = {
+                username: '游客'
+                , uid: -1
+                , avatar: '/fly/images/avatar/00.jpg'
+                , experience: 83
+                , sex: '男'
+            };
+
+            layui.config({
+                version: "2.0.0"
+                , base: '/fly/mods/'
+            }).extend({
+                fly: 'index'
+            }).use('fly');
+
         <?php $this->endBlock(); ?>
+
     </script>
+
     <?php $this->registerJs($this->blocks['fly_layui'], \yii\web\View::POS_READY); ?>
     <?php $this->endBody() ?>
     </body>
