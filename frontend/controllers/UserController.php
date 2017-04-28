@@ -9,6 +9,7 @@
 
 namespace frontend\controllers;
 
+use common\models\Task;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -46,7 +47,6 @@ class UserController extends Controller
                 'width' => 120,  //宽度
                 'foreColor' => 0xffffff,     //字体颜色
                 'offset' => 6,        //设置字符偏移量 有效果
-//                'disturbCharCount' =>2,//干扰字符数量
                 'transparent' => false,
 //                'controller'=>'user/login',        //拥有这个动作的controller
             ],
@@ -61,7 +61,6 @@ class UserController extends Controller
                 'width' => 120,  //宽度
                 'foreColor' => 0xffffff,     //字体颜色
                 'offset' => 6,        //设置字符偏移量 有效果
-//                'disturbCharCount' =>2,//干扰字符数量
                 'transparent' => false,
 //                'controller'=>'user/login',        //拥有这个动作的controller
             ],
@@ -71,7 +70,7 @@ class UserController extends Controller
 
     public function actionHome()
     {
-        $data         = [];
+        $data = [];
         return $this->render('home', $data);
     }
 
@@ -90,8 +89,6 @@ class UserController extends Controller
     }
 
 
-
-
     public function actionMessage()
     {
         $this->layout = "user";
@@ -103,6 +100,41 @@ class UserController extends Controller
     public function actionAdd()
     {
         $data = [];
+
+        if (Yii::$app->request->isPost && Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+
+            $Task                       = new Task();
+            $data                       = Yii::$app->request->post();
+            $data['Task']['created_at'] = time();
+            $data['Task']['updated_at'] = time();
+
+            if ($Task->load($data) && $Task->validate()) {
+
+                if ($Task->save()) {
+                    Yii::$app->response->data = ['status' => 0, 'msg' => '成功', 'code' => 200, 'action' => Url::to(['/user/index'])];
+                    Yii::$app->response->setStatusCode(200);
+                } else {
+                    $errors = $Task->getFirstErrors();
+                    $error  = '';
+                    foreach ($errors as $key => $value) {
+                        $error .= $value . '....';
+                    }
+                    Yii::$app->response->data = ['status' => 'error', 'msg' => $error, 'code' => 406];
+                    Yii::$app->response->setStatusCode(200, $error);
+                }
+
+            } else {
+                $errors = $Task->getFirstErrors();
+                $error  = '';
+                foreach ($errors as $key => $value) {
+                    $error .= $value . '....';
+                }
+                Yii::$app->response->data = ['status' => 'error', 'msg' => $error, 'code' => 406];
+                Yii::$app->response->setStatusCode(200, $error);
+            }
+            Yii::$app->response->send();
+        }
         return $this->render('add', $data);
     }
 

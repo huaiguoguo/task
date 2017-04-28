@@ -33,10 +33,10 @@ class Task extends \yii\db\ActiveRecord
     {
         return [
             [['category_id', 'created_uid', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'content', 'created_uid', 'created_at', 'updated_at'], 'required'],
+            [['title', 'content', 'created_uid', 'created_at', 'updated_at'], 'required', 'message'=>'{attribute}必填'],
             [['content'], 'string'],
             [['title'], 'string', 'max' => 60],
-            [['title'], 'unique'],
+            [['title'], 'unique', 'message'=>'{attribute}已经存在'],
         ];
     }
 
@@ -47,13 +47,13 @@ class Task extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'category_id' => 'Category ID',
-            'title' => 'Title',
-            'content' => 'Content',
-            'created_uid' => 'Created Uid',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'category_id' => '分类',
+            'title' => '标题',
+            'content' => '内容',
+            'created_uid' => '创建人',
+            'status' => '状态',
+            'created_at' => '创建时间',
+            'updated_at' => '更新时间',
         ];
     }
 

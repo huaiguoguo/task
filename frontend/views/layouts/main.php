@@ -69,7 +69,7 @@ AppAsset::register($this);
     </div>
 
     <div class="main layui-clear">
-        <?php echo $content; ?>
+        <?=$content; ?>
     </div>
 
     <div class="footer">
