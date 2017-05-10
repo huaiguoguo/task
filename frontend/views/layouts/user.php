@@ -28,8 +28,8 @@ $currentAction = Yii::$app->controller->action->id;
             </div>
             -->
             <div class="layui-tab layui-tab-brief" lay-filter="user">
-                <?php echo $this->render('user_right_top', ['currentController'=>$currentController, 'currentAction'=>$currentAction]);?>
-                <?php echo $content;?>
+                <?=$this->render('user_right_top', ['currentController'=>$currentController, 'currentAction'=>$currentAction]);?>
+                <?=$content;?>
             </div>
         </div>
     </div>

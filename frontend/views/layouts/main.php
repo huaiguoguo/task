@@ -80,31 +80,31 @@ AppAsset::register($this);
             <a href="http://fly.layui.com/jie/2461.html" target="_blank">微信公众号</a>
         </p>
     </div>
-    <script>
 
+    <input type="hidden" name="<?=Yii::$app->request->csrfParam;?>" value="<?=Yii::$app->request->csrfToken;?>"/>
+    <script>
         <?php $this->beginBlock('fly_layui'); ?>
 
-            layui.cache.page = '';
-            layui.cache.user = {
-                username: '游客'
-                , uid: -1
-                , avatar: '/fly/images/avatar/00.jpg'
-                , experience: 83
-                , sex: '男'
-            };
 
-            layui.config({
-                version: "2.0.0"
-                , base: '/fly/mods/'
-            }).extend({
-                fly: 'index'
-            }).use('fly');
+        layui.cache.page = 'user';
+        layui.cache.user = {
+            username: '游客'
+            ,uid: -1
+            ,avatar: '/fly//res/images/avatar/00.jpg'
+            ,experience: 83
+            ,sex: '男'
+        };
+        layui.config({
+            version: "2.0.0"
+            ,base: '/fly/res/mods/'
+        }).extend({
+            fly: 'index'
+        }).use('fly');
 
         <?php $this->endBlock(); ?>
-
     </script>
+    <?php $this->registerJs($this->blocks['fly_layui'], \yii\web\View::POS_END); ?>
 
-    <?php $this->registerJs($this->blocks['fly_layui'], \yii\web\View::POS_READY); ?>
     <?php $this->endBody() ?>
     </body>
     </html>

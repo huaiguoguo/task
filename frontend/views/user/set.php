@@ -53,7 +53,7 @@
             <div class="avatar-add">
                 <p>建议尺寸168*168，支持jpg、png、gif，最大不能超过30KB</p>
                 <div class="upload-img">
-                    <input type="file" name="file" id="LAY-file" lay-title="上传头像">
+                    <input type="file" name="file" id="LAY-file" lay-title="上传头像" data-url="<?=\yii\helpers\Url::to(['user/upload'])?>">
                 </div>
                 <img src="http://tp4.sinaimg.cn/1345566427/180/5730976522/0">
                 <span class="loading"></span>

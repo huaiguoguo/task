@@ -159,7 +159,8 @@ layui.define(['laypage', 'fly', 'element'], function(exports){
       layui.upload({
         elem: '.upload-img input'
         ,method: 'post'
-        ,url: '/user/upload/'
+        // ,url: '/user/upload/'
+        ,url: $('#LAY-file').data('url')
         ,before: function(){
           avatarAdd.find('.loading').show();
         }

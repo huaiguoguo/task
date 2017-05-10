@@ -33,35 +33,35 @@ class UserController extends Controller
     public function actions()
     {
         return [
-            'error' => [
+            'error'          => [
                 'class' => 'yii\web\ErrorAction',
             ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
+            'captcha'        => [
+                'class'           => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-                'backColor' => 0x000000,//背景颜色
-                'maxLength' => 6, //最大显示个数
-                'minLength' => 5,//最少显示个数
-                'padding' => 5,//间距
-                'height' => 37,//高度
-                'width' => 120,  //宽度
-                'foreColor' => 0xffffff,     //字体颜色
-                'offset' => 6,        //设置字符偏移量 有效果
-                'transparent' => false,
+                'backColor'       => 0x000000,//背景颜色
+                'maxLength'       => 6, //最大显示个数
+                'minLength'       => 5,//最少显示个数
+                'padding'         => 5,//间距
+                'height'          => 37,//高度
+                'width'           => 120,  //宽度
+                'foreColor'       => 0xffffff,     //字体颜色
+                'offset'          => 6,        //设置字符偏移量 有效果
+                'transparent'     => false,
 //                'controller'=>'user/login',        //拥有这个动作的controller
             ],
             'captcha_signup' => [
-                'class' => 'yii\captcha\CaptchaAction',
+                'class'           => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-                'backColor' => 0x000000,//背景颜色
-                'maxLength' => 6, //最大显示个数
-                'minLength' => 5,//最少显示个数
-                'padding' => 5,//间距
-                'height' => 37,//高度
-                'width' => 120,  //宽度
-                'foreColor' => 0xffffff,     //字体颜色
-                'offset' => 6,        //设置字符偏移量 有效果
-                'transparent' => false,
+                'backColor'       => 0x000000,//背景颜色
+                'maxLength'       => 6, //最大显示个数
+                'minLength'       => 5,//最少显示个数
+                'padding'         => 5,//间距
+                'height'          => 37,//高度
+                'width'           => 120,  //宽度
+                'foreColor'       => 0xffffff,     //字体颜色
+                'offset'          => 6,        //设置字符偏移量 有效果
+                'transparent'     => false,
 //                'controller'=>'user/login',        //拥有这个动作的controller
             ],
         ];
@@ -136,6 +136,16 @@ class UserController extends Controller
             Yii::$app->response->send();
         }
         return $this->render('add', $data);
+    }
+
+
+    public function actionUpload()
+    {
+//        $this->enableCsrfValidation = false;
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        Yii::$app->response->data = ['message'=>"成功"];
+        Yii::$app->response->statusCode = 505;
+        Yii::$app->response->send();
     }
 
 

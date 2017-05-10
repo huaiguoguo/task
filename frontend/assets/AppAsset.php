@@ -4,6 +4,7 @@ namespace frontend\assets;
 
 use yii\web\AssetBundle;
 use yii\bootstrap\BootstrapAsset;
+use yii\web\View;
 
 /**
  * Main frontend application asset bundle.
@@ -15,16 +16,16 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
 
     public $css = [
-        "/fly/layui/css/layui.css",
-        "/fly/css/global.css",
+        "/fly/res/layui/css/layui.css",
+        "/fly/res/css/global.css",
     ];
 
     public $js = [
-        '/fly/layui/layui.js'
+        '/fly/res/layui/layui.js',
     ];
 
     public $depends = [
-//        'yii\web\YiiAsset',
+        'yii\web\YiiAsset',
 //        'yii\bootstrap\BootstrapAsset',
     ];
 }
