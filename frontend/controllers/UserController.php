@@ -9,6 +9,7 @@
 
 namespace frontend\controllers;
 
+use common\behavior\NoCsrf;
 use common\models\Task;
 use Yii;
 use yii\helpers\Html;
@@ -25,6 +26,7 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use yii\web\Link;
 use yii\web\Response;
+use yii\web\UploadedFile;
 
 class UserController extends Controller
 {
@@ -62,11 +64,35 @@ class UserController extends Controller
                 'foreColor'       => 0xffffff,     //字体颜色
                 'offset'          => 6,        //设置字符偏移量 有效果
                 'transparent'     => false,
-//                'controller'=>'user/login',        //拥有这个动作的controller
             ],
         ];
     }
 
+
+
+//    public function behaviors()
+//    {
+//        return [
+//            'csrf' => [
+//                'class' => NoCsrf::className(),
+//                'controller' => $this,
+//                'actions' => [
+//                    'upload'
+//                ]
+//            ]
+//        ];
+//    }
+
+
+    public function beforeAction($action)
+    {
+        $CurrentAction  = $action->id;
+        $NovalidActions = ['upload'];
+        if (in_array($CurrentAction, $NovalidActions)) {
+            $action->controller->enableCsrfValidation = false;
+        }
+        return parent::beforeAction($action);
+    }
 
     public function actionHome()
     {
@@ -142,8 +168,9 @@ class UserController extends Controller
     public function actionUpload()
     {
 //        $this->enableCsrfValidation = false;
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        Yii::$app->response->data = ['message'=>"成功"];
+        Yii::$app->response->format     = Response::FORMAT_JSON;
+        UploadedFile::getInstanceByName("");
+        Yii::$app->response->data       = ['message' => $_FILES];
         Yii::$app->response->statusCode = 505;
         Yii::$app->response->send();
     }
